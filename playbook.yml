@@ -1,4 +1,4 @@
-- hosts: remoto
+- hosts: local
   gather_facts: False
   debugger: on_skipped
 
@@ -31,6 +31,13 @@
       - docker-compose.yml
       - Dockerfile
       - main.py
+      - requirements.txt
 
   - name: Construindo a imagem
     command: docker build -t mongo-express:0.54.0 .
+     
+  - name: Insalando o Mongo DB
+    apt:
+      name: mongodb
+      update_cache: yes
+      state: present
